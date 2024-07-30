@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Llamando...</title>
+  <title></title>
   <style>
       body {
         background-color: lightblue;
@@ -11,7 +11,6 @@
         align-items: center;
         height: 100vh;
         margin: 0;
-        flex-direction: column; /* Para colocar el texto debajo del anillo */
       }
       
       .lds-ring {
@@ -54,12 +53,26 @@
 </head>
 <body>
   <script>
-    const PHONE_NUMBER = "1234567890"; // Reemplaza con el número de teléfono deseado
-    window.location.href = `tel:${PHONE_NUMBER}`;
+    const AS_URL_BASE = "https://script.google.com/macros/s/AKfycbyZr6vVy-ksFxMh1MS6kpOFayFHVTKMdKiAvAzIlE_WpFflCgpRM8RI_9AeaK6IpKVcrA/exec";
+    
+    var url = document.location.href;
+    var k = url.substr(url.lastIndexOf("k=")+2);
+    
+    if(k){
+      fetch(AS_URL_BASE+'?k='+k)
+      .then(r => r.text())
+      .then((r) => {
+        console.log(r);
+        if(r){
+          document.location.replace(r);
+        }
+      })
+      .catch(err => console.log(err))
+    }
+
   </script>
   
   <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-  <p>Llamando al número...</p>
   
 </body>
 </html>
